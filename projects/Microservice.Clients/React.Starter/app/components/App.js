@@ -1,21 +1,36 @@
 import React, { Component } from 'react';
-// TODO: import Navbar component
-// TODO: import RandomQuote component
-// TODO: import QuoteList component
+import Navbar from './Navbar';
+import RandomQuote from './RandomQuote';
+import QuoteList from './QuoteList';
 
 export default class App extends Component {
-    // TODO: Add state to store the active app link
+    state = {
+        activeLink: 'Home'
+    };
 
-    // TODO: Add setActiveLink method
+    setActiveLink = (link) => {
+        this.setState({ activeLink: link });
+    };
 
     render() {
+        let content;
 
-        // TODO: Add Switch to determine which content to render, RandomQuote or QuoteList
+        switch (this.state.activeLink) {
+            case 'Home':
+                content = (<RandomQuote />);
+                break;
+            case 'Quotes':
+                content = (<QuoteList />);
+                break;
+            default:
+                content = (<h4>Unknown state</h4>);
+                break;
+        }
 
         return (
             <div>
-                // TODO: Render Navbar passing the setActiveLink method and current active link
-                // TODO: Render the content that was assigned in the switch statement
+                {Navbar(this.setActiveLink, this.state.activeLink)}
+                {content}
             </div>
         );
     }

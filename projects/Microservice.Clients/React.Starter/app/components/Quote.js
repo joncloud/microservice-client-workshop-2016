@@ -2,8 +2,9 @@ import React, { PropTypes } from 'react';
 
 const Quote = quote =>
 {
-    // TODO: Add string literal to display the quote text
-    // TODO: Return the markup that renders the quote text
+    const text = (quote ? quote.text : '');
+    const author = (quote ? quote.author : '');
+    return (<div className="well well-sm"><p>{text}</p><p><i>{author}</i></p></div>);
 }
 
 Quote.propTypes = {

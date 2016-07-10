@@ -1,25 +1,30 @@
 import React, {Component} from 'react';
-// TODO: Import quote microservice module
-// TODO: Import quote component
+import QuoteService from '../common/js/forge/services/quote';
+import Quote from './Quote';
 
 export default class RandomQuote extends Component{
-    // TODO: Add state to store the current random quote
+    state = {
+        quote: undefined
+    };
+    
     componentWillMount(){
         if(!this.state.quote) {
-            // TODO: Add call to getRandomQuote method
+            this.getRandomQuote();
         }
     }
+
     getRandomQuote = () => {
-        Quote.setOptions({ baseUri: 'http://dev-forge.api.hdquotecenter.com' });
-        Quote.getRandomQuote().then(quote => {
-            // TODO: Set the quote property of state to the value that comes back
+        QuoteService.setOptions({ baseUri: 'http://dev-forge.api.hdquotecenter.com' });
+        QuoteService.getRandomQuote().then(quote => {
+            this.setState({ quote: quote });
         });
     };
+
     render(){
         return (
             <div className="container-fluid">
                 <h2>Random Quote</h2>
-                // TODO: Render the Quote using the Quote component
+                {Quote(this.state.quote)}
                 <button className="btn btn-primary" onClick={this.getRandomQuote}>Get Random Quote</button>
             </div>
         );

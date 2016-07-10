@@ -1,7 +1,7 @@
-// TODO: Import react module
-// TODO: Import render method from the react-dom module
-// TODO: Import App Component
+import React from 'react';
+import {render} from 'react-dom';
+import App from './components/App';
 
 export default (() => {
-    // TODO: Render the App component to the root DOM element
+    render((<App/>), document.getElementById('root'));
 })();
