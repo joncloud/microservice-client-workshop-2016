@@ -6,25 +6,51 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 </head>
 <body>
-<nav class="navbar navbar-inverse">
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Vanilla JS</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="index.html">Home</a></li>
+                    <li class="active"><a href="#">Quotes</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">Vanilla JS</a>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li><a href="index.html">Home</a></li>
-                <li class="active"><a href="#">Quotes</a></li>
-            </ul>
-        </div>
+        <h2>All Quotes</h2>
+        <ul id="quoteList" class="list-group"></ul>
     </div>
-</nav>
-<div class="container-fluid">
-    <h2>All Quotes</h2>
-    <ul id="quoteList" class="list-group">
-    </ul>
-</div>
-    <!--TODO: Add Proxy Script References-->
-    <!--TODO: Add getAllQuotes script -->
+    <script src="http://dev-forge.api.hdquotecenter.com/serviceProxySupport/ajax.js"></script>
+    <script src="http://dev-forge.api.hdquotecenter.com/serviceProxySupport/auth.js"></script>
+    <script src="http://dev-forge.api.hdquotecenter.com/serviceProxySupport/notifications.js"></script>
+    <script src="http://dev-forge.api.hdquotecenter.com/serviceProxySupport/ajaxOptions.js"></script>
+    <script src="http://dev-forge.api.hdquotecenter.com/serviceProxySupport/promise.js"></script>
+    <script src="http://dev-forge.api.hdquotecenter.com/serviceProxies/Quotes.Microservice/1.0.0/quote.js"></script>
+    <script src="http://dev-forge.api.hdquotecenter.com/serviceProxies/HomeDepot.Platform.Identity.Microservice/1.0.1-build-7/token.js"></script>
+    <script>
+        (function () {
+            Quote.setOptions({
+                baseUri: 'http://dev-forge.api.hdquotecenter.com/'
+            });
+
+            window.getAllQuotes = function () {
+                Quote.getAll().then(function (quotes) {
+                    var ul = document.getElementById('quoteList');
+
+                    quotes.forEach(function (quote) {
+                        var li = document.createElement('li');
+                        li.innerHTML = '<div><h4>' + quote.text + '</h4><h6><i>- ' + quote.author + '</i></h6></div>';
+                        li.className = 'list-group-item';
+                        ul.appendChild(li);
+                    });
+                });
+            };
+
+            window.addEventListener('DOMContentLoaded', window.getAllQuotes);
+        })();
+    </script>
 </body>
 </html>

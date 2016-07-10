@@ -22,10 +22,31 @@
 <div class="container-fluid">
     <h2>Random Quote</h2>
     <h4 id="quote"></h4>
-    <!--TODO: Add onClick handler for getting a random quote-->
-    <button class="btn btn-primary" >Get Random Quote</button>
+    <h6><i id="author"></i></h6>
+    <button class="btn btn-primary" onclick="getRandomQuote()">Get Random Quote</button>
 </div>
-    <!--TODO: Add Proxy Script References-->
-    <!--TODO: Add getRandomQuote script -->
+    <script src="http://dev-forge.api.hdquotecenter.com/serviceProxySupport/ajax.js"></script>
+    <script src="http://dev-forge.api.hdquotecenter.com/serviceProxySupport/auth.js"></script>
+    <script src="http://dev-forge.api.hdquotecenter.com/serviceProxySupport/notifications.js"></script>
+    <script src="http://dev-forge.api.hdquotecenter.com/serviceProxySupport/ajaxOptions.js"></script>
+    <script src="http://dev-forge.api.hdquotecenter.com/serviceProxySupport/promise.js"></script>
+    <script src="http://dev-forge.api.hdquotecenter.com/serviceProxies/Quotes.Microservice/1.0.0/quote.js"></script>
+    <script src="http://dev-forge.api.hdquotecenter.com/serviceProxies/HomeDepot.Platform.Identity.Microservice/1.0.1-build-7/token.js"></script>
+    <script>
+        (function () {
+            Quote.setOptions({
+                baseUri: 'http://dev-forge.api.hdquotecenter.com/'
+            });
+
+            window.getRandomQuote = function () {
+                Quote.getRandomQuote().then(function (quote) {
+                    document.getElementById('quote').innerText = quote.text;
+                    document.getElementById('author').innerText = '- ' + quote.author;
+                });
+            };
+
+            window.addEventListener('DOMContentLoaded', window.getRandomQuote);
+        })();
+    </script>
 </body>
 </html>
