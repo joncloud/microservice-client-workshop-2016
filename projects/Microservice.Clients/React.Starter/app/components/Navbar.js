@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 
 const Navbar = (setActiveLink, activeLink) =>
 {
-    var links = ['Home', 'Quotes'].map((item, index) => {
+    var links = ['Home', 'Quotes', 'Add'].map((item, index) => {
         return (<li key={index} className={activeLink === item ? 'active' : ''}>
             <a href="#" onClick={() => setActiveLink(item)}>{item}</a>
         </li>);

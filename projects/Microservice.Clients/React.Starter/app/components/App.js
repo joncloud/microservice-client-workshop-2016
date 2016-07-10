@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import AddQuote from './AddQuote';
 import Navbar from './Navbar';
 import RandomQuote from './RandomQuote';
 import QuoteList from './QuoteList';
@@ -21,6 +22,9 @@ export default class App extends Component {
                 break;
             case 'Quotes':
                 content = (<QuoteList />);
+                break;
+            case 'Add':
+                content = (<AddQuote />);
                 break;
             default:
                 content = (<h4>Unknown state</h4>);
