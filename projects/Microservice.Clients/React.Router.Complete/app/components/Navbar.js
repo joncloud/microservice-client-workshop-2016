@@ -2,6 +2,15 @@ import React from 'react';
 import { Link } from 'react-router';
 
 const Navbar = () => {
+    var links = [
+        {path: '/', text: 'Home'},
+        {path: '/list', text: 'Quotes'}
+    ].map((link, index) => {
+        return (<li key={index} className={location.pathname === link.path ? 'active' : ''}>
+            <Link to={link.path}>{link.text}</Link>
+        </li>);
+    });
+
     return (<nav className="navbar navbar-inverse">
         <div className="container-fluid">
             <div className="navbar-header">
@@ -9,8 +18,7 @@ const Navbar = () => {
             </div>
             <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul className="nav navbar-nav">
-                    <li className={location.pathname === '/' ? 'active' : ''}><Link to="/">Home</Link></li>
-                    <li className={location.pathname === '/list' ? 'active' : ''}><Link to="/list">Quotes</Link></li>
+                    {links}
                 </ul>
             </div>
         </div>
